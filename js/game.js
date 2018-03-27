@@ -48,7 +48,12 @@ function create() {
     sprite2 = game.add.sprite(300, 300, 'player');
 
     game.vjoy = game.plugins.add(Phaser.Plugin.VJoy);
-    game.vjoy.inputEnable();
+
+    game.vjoy.inputEnable(0, 0, 400, 600);
+    game.vjoy.speed = {
+        x:500,
+        y:500
+    };
 }
 
 function update() {
@@ -94,17 +99,19 @@ function update() {
 
     var cursorsVjoy = game.vjoy.cursors;
 
-      if (cursorsVjoy.left) {
+    if (cursorsVjoy.left) {
         sprite2.x--;
-      } else if (cursorsVjoy.right) {
+    } else if (cursorsVjoy.right) {
         sprite2.x++;
-      }
+    }
 
-      if (cursorsVjoy.up) {
+    if (cursorsVjoy.up) {
         sprite2.y--;
-      } else if (cursorsVjoy.down) {
+    } else if (cursorsVjoy.down) {
         sprite2.y++;
-      }
+    }
+}
 
-
+function onUp() {
+    console.log('up')
 }
