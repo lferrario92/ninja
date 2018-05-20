@@ -1,24 +1,36 @@
-var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(360, 640, Phaser.CANVAS, 'game', { preload: preload, create: create, update: update });
 
 function preload() {
 
-    game.load.image('atari', 'assets/test_on.png');
+    game.load.image('test', 'assets/test_on.png');
     game.load.image('sky', 'assets/back.png');
 
-    game.load.image('player', 'assets/player.png');
     game.load.image('vjoy_base', 'assets/base.png');
     game.load.image('vjoy_body', 'assets/body.png');
     game.load.image('vjoy_cap', 'assets/cap.png');
 
+
+    game.load.tilemap('map', 'assets/test_map.json', null, Phaser.Tilemap.TILED_JSON);
 }
 
 var sprite;
 var cursors;
 var joystick
+var joystickHolder = document.getElementById('joystickHolder');
+var newJoy;
+
 
 function create() {
 
     game.add.image(0, 0, 'sky');
+
+
+    // map = game.add.tilemap('map');
+
+    // layer = map.createLayer('Capa de Patrones 1');
+
+    // layer.resizeWorld();
+    // game.physics.p2.convertTilemap(map, layer);
 
     //  Enable p2 physics
     game.physics.startSystem(Phaser.Physics.P2JS);
@@ -27,33 +39,32 @@ function create() {
     game.physics.p2.defaultRestitution = 0.8;
 
     //  Add a sprite
-    sprite = game.add.sprite(200, 200, 'atari');
+    sprite = game.add.sprite(200, 200, 'test');
+    ice = game.add.sprite(100, 50, 'vjoy_cap');
 
     //  Enable if for physics. This creates a default rectangular body.
     game.physics.p2.enable(sprite);
+    game.physics.p2.enable(ice);
+
+    game.world.setBounds(0, 0, 1920, 1920);
+
+    game.camera.follow(sprite);
 
     //  Modify a few body properties
     sprite.body.setZeroDamping();
     sprite.body.fixedRotation = true;
 
-    text = game.add.text(20, 20, 'move with arrow keys', { fill: '#ffffff' });
-
     cursors = game.input.keyboard.createCursorKeys();
 
     joystick  = new VirtualJoystick({
-      container : document.getElementById('gameJoy'),
+      container : joystickHolder,
       mouseSupport  : true,
+      stationaryBase: true,
+      baseX: 180,
+      baseY: 640 - 126,
+      limitStickTravel: true,
+      stickRadius: 65,
     });
-
-    sprite2 = game.add.sprite(300, 300, 'player');
-
-    game.vjoy = game.plugins.add(Phaser.Plugin.VJoy);
-
-    game.vjoy.inputEnable(0, 0, 400, 600);
-    game.vjoy.speed = {
-        x:500,
-        y:500
-    };
 }
 
 function update() {
@@ -62,56 +73,37 @@ function update() {
 
     if (cursors.left.isDown)
     {
-        sprite.body.moveLeft(400);
+        sprite.body.moveLeft(200);
     }
     else if (cursors.right.isDown)
     {
-        sprite.body.moveRight(400);
+        sprite.body.moveRight(200);
     }
 
     if (cursors.up.isDown)
     {
-        sprite.body.moveUp(400);
+        sprite.body.moveUp(200);
     }
     else if (cursors.down.isDown)
     {
-        sprite.body.moveDown(400);
+        sprite.body.moveDown(200);
     }
 
     if (joystick.left())
     {
-        sprite.body.moveLeft(400);
+        sprite.body.moveLeft(200);
     }
     else if (joystick.right())
     {
-        sprite.body.moveRight(400);
+        sprite.body.moveRight(200);
     }
 
     if (joystick.up())
     {
-        sprite.body.moveUp(400);
+        sprite.body.moveUp(200);
     }
     else if (joystick.down())
     {
-        sprite.body.moveDown(400);
+        sprite.body.moveDown(200);
     }
-
-
-    var cursorsVjoy = game.vjoy.cursors;
-
-    if (cursorsVjoy.left) {
-        sprite2.x--;
-    } else if (cursorsVjoy.right) {
-        sprite2.x++;
-    }
-
-    if (cursorsVjoy.up) {
-        sprite2.y--;
-    } else if (cursorsVjoy.down) {
-        sprite2.y++;
-    }
-}
-
-function onUp() {
-    console.log('up')
 }

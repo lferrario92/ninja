@@ -2,7 +2,7 @@ var VirtualJoystick	= function(opts)
 {
 	opts			= opts			|| {};
 	this._container		= opts.container	|| document.body;
-	this._strokeStyle	= opts.strokeStyle	|| 'cyan';
+	this._strokeStyle	= opts.strokeStyle	|| 'red';
 	this._stickEl		= opts.stickElement	|| this._buildJoystickStick();
 	this._baseEl		= opts.baseElement	|| this._buildJoystickBase();
 	this._mouseSupport	= opts.mouseSupport !== undefined ? opts.mouseSupport : false;
@@ -151,7 +151,7 @@ VirtualJoystick.prototype._onUp	= function()
 	this._stickEl.style.display	= "none";
 	
 	if(this._stationaryBase == false){	
-		this._baseEl.style.display	= "none";
+		this._baseEl.style.display	= "block";
 	
 		this._baseX	= this._baseY	= 0;
 		this._stickX	= this._stickY	= 0;
