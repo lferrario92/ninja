@@ -74,36 +74,44 @@ function update() {
     if (cursors.left.isDown)
     {
         sprite.body.moveLeft(200);
+        sprite.angle = -90;
     }
     else if (cursors.right.isDown)
     {
         sprite.body.moveRight(200);
+        sprite.angle = 90;
     }
 
     if (cursors.up.isDown)
     {
         sprite.body.moveUp(200);
+        sprite.angle = 0;
     }
     else if (cursors.down.isDown)
     {
         sprite.body.moveDown(200);
+        sprite.angle = 180;
     }
 
     if (joystick.left())
     {
         sprite.body.moveLeft(200);
+        sprite.angle = -90;
     }
     else if (joystick.right())
     {
         sprite.body.moveRight(200);
+        sprite.angle = 90;
     }
 
     if (joystick.up())
     {
         sprite.body.moveUp(200);
+        sprite.angle = 0;
     }
     else if (joystick.down())
     {
         sprite.body.moveDown(200);
+        sprite.angle = 180;
     }
 }
