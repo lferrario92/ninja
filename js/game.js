@@ -67,6 +67,12 @@ function create() {
     });
 }
 
+function calcAngleDegrees(x, y) {
+  return Math.atan2(y, x) * 180 / Math.PI;
+}
+
+const theDivisor = 5
+
 function update() {
 
     sprite.body.setZeroVelocity();
@@ -95,23 +101,23 @@ function update() {
 
     if (joystick.left())
     {
-        sprite.body.moveLeft(200);
-        sprite.angle = -90;
+        sprite.body.velocity.mx = (joystick._stickX - joystick._baseX) / theDivisor;
+        sprite.angle = calcAngleDegrees(joystick._stickX - joystick._baseX, joystick._stickY - joystick._baseY);
     }
     else if (joystick.right())
     {
-        sprite.body.moveRight(200);
-        sprite.angle = 90;
+        sprite.body.velocity.mx = (joystick._stickX - joystick._baseX) / theDivisor;
+        sprite.angle = calcAngleDegrees(joystick._stickX - joystick._baseX, joystick._stickY - joystick._baseY);
     }
 
     if (joystick.up())
     {
-        sprite.body.moveUp(200);
-        sprite.angle = 0;
+        sprite.body.velocity.my = (joystick._stickY - joystick._baseY) / theDivisor;
+        sprite.angle = calcAngleDegrees(joystick._stickX - joystick._baseX, joystick._stickY - joystick._baseY);
     }
     else if (joystick.down())
     {
-        sprite.body.moveDown(200);
-        sprite.angle = 180;
+        sprite.body.velocity.my = (joystick._stickY - joystick._baseY) / theDivisor;
+        sprite.angle = calcAngleDegrees(joystick._stickX - joystick._baseX, joystick._stickY - joystick._baseY);
     }
 }
