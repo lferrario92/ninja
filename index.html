@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="js/phaser.min.js"></script>
-  <script src="js/game.js"></script>        
+  <script src="js/game.js"></script>
   <script src="js/virtualjoystick.js"></script>
   <!-- <script src="js/vjoy.js"></script> -->
 </head>
@@ -14,6 +14,7 @@
 </body>
 </html>
 
+<script src="js/joy.js"></script>
 <style>
 body {
   margin: 0;
@@ -27,7 +28,7 @@ canvas {
 }
 
 #joystickHolder {
-  position: fixed;
+  position: fixed !important;
   top: 0;
   bottom: 0;
   left: 0;
